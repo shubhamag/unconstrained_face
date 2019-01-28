@@ -34,7 +34,8 @@ if os.path.exists(export_path):
     shutil.rmtree(export_path)
 os.mkdir(export_path)
 
-fo = open(os.path.join(export_path, "landmarks.csv"),"wb")
+# fo = open(os.path.join(export_path, "landmarks.csv"),"wb")
+fo = open(os.path.join(export_path, "landmarks.csv"),"w")
 writer = csv.writer(fo)
 
 for fi, f in enumerate(files):

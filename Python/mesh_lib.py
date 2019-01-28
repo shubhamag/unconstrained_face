@@ -3,6 +3,7 @@ import scipy as sp
 import scipy.linalg
 import scipy.sparse
 import scipy.io
+import pdb
 
 class Mesh(object):
   def __init__(self):
@@ -23,6 +24,7 @@ class Mesh(object):
 
   def loadObjFile(self, filename):
     self.clearTmpData()
+    print("attempting to open obj: " + filename)
     fi = open(filename)
     if not self.readObjData(fi):
       return False
@@ -126,26 +128,30 @@ class Mesh(object):
         self.addObjFace(tokens[1:])  # face
         continue  # face
       else:
-        print 'Error: does not appear to be a valid Wavefront OBJ file!'
-        print '(Offending line: %s)' % line
+        print ('Error in readObjData: does not appear to be a valid Wavefront OBJ file!')
+        print ('(Offending line: %s)') % line
         return False
     return True
 
   def readMatData(self, filename):
     try:
+      print("\n\n #####Attempting to read: " + filename + "\n\n")
+      # pdb.set_trace()
       matdata = sp.io.loadmat(filename)
+      print ("\nloaded mat file")
       X = matdata['X']  # vertex positions
       N = matdata['N']  # vertex normals
       T = matdata['T']  # Triangles
       num_vertices = len(X[1,:])
-      for i in xrange(num_vertices):
+      for i in range(num_vertices):
         self.addPosition(X[:,i])
         self.addNormal(N[:,i])
       num_triangles = len(T[:,1])
-      for i in xrange(num_triangles):
+      for i in range(num_triangles):
         self.addFace(T[i,:])
+
     except KeyError:
-      print 'Error: provide X, N, and T'
+      print ('Error: provide X, N, and T, returning False in readMatData')
       return False
     return True
 
@@ -174,7 +180,7 @@ class Mesh(object):
       N = len(faceIndices)
 
       if N < 3:
-        print 'Error: face %d is degenerate (fewer than three vertices)!' % (len(self.faces) + 1)
+        print ('Error: face %d is degenerate (fewer than three vertices)!' % (len(self.faces) + 1))
         degenerateFaces = True
         continue
 
@@ -183,7 +189,7 @@ class Mesh(object):
       self.faces.append(newFace)
 
       # Create a new half edge for each edge of the face
-      hes = [HalfEdge() for i in xrange(N)]
+      hes = [HalfEdge() for i in range(N)]
 
       for i, he in enumerate(hes):
         v_i = faceIndices[i].position
@@ -227,7 +233,7 @@ class Mesh(object):
         # Check for nonmanifold edges.
         edgeCount[(v_i, v_j)] += 1
         if edgeCount[(v_i, v_j)] > 2:
-          print "Error: edge (%d, %d) is nonmanifold (more than two faces sharing a single edge)." % v_i, v_j
+          print ("Error: edge (%d, %d) is nonmanifold (more than two faces sharing a single edge)." % v_i, v_j)
           return False
 
     # Give up now if there are degenerate faces
