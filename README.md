@@ -1,7 +1,6 @@
 # unconstrained_face
 
-Python 3.5 port for the original implentation of Roth et al 's photo-stereo approach for face reconstruction
-From : http://cvlab.cse.msu.edu/project-face-recon.html
+Python 3.5 port for the original implentation of Roth et al 's photo-stereo approach for face reconstruction ( http://cvlab.cse.msu.edu/project-face-recon.html )
 Fixes and changes for py35, makes it much easier to run in windows w/ conda, since the code is provided as an executable
 
 Readme, for running with Anaconda and python 3.5
