@@ -1,17 +1,17 @@
 # unconstrained_face
-dataset prep code in python for being able to use Roth et al 's photo-stereo approach for face reconstruction
+
+Python 3.5 port for the original implentation of Roth et al 's photo-stereo approach for face reconstruction
 From : http://cvlab.cse.msu.edu/project-face-recon.html
+Fixes and changes for py35, makes it much easier to run in windows w/ conda, since the code is provided as an executable
+
+Readme, for running with Anaconda and python 3.5
 
 MATLAB Compiler
 
 1. Prerequisites for Deployment 
 . Python with SciPy and dlib.
   The easiest installation is to use Anaconda Python for windows: https://www.continuum.io/downloads
-  To note that, we test the code under Python 2.7, Anaconda 4.1. Any version below Anaconda 4.1 may lead to a failure of the code.
-  This includes all of the dependencies besides dlib.
 
-  The easiest install of dlib is using the python package manager
-  >>pip install dlib
 
 . Verify the MATLAB Runtime is installed and ensure you    
   have installed version 9.0 (R2015b).   
